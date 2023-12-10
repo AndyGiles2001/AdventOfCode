@@ -17,7 +17,7 @@ public class Part1 {
     private static final int WIN = 6;
 
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = InputOutputUtils.getBufferedReader(2022, 2);
+        BufferedReader bufferedReader = InputOutputUtils.getBufferedReaderFromFile();
 
         int result = bufferedReader
             .lines()

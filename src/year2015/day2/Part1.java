@@ -10,7 +10,7 @@ import utils.InputOutputUtils;
 public class Part1 {
 
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = InputOutputUtils.getBufferedReader(2015, 2);
+        BufferedReader bufferedReader = InputOutputUtils.getBufferedReaderFromFile();
 
         int total = bufferedReader
             .lines()
