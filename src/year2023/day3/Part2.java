@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import utils.InputOutputUtils;
+
 public class Part2 {
 
     private static final int UP_LEFT = 0;
@@ -22,8 +24,7 @@ public class Part2 {
     private static final int DOWN_RIGHT = 8;
 
     public static void main(String[] args) throws IOException {
-        FileReader fileReader = new FileReader("../Input/Day3.txt");
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        BufferedReader bufferedReader = InputOutputUtils.getBufferedReaderFromFile();
 
         char[][] storedLines = bufferedReader
             .lines()

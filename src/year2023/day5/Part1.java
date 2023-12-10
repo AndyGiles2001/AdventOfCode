@@ -7,11 +7,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import utils.InputOutputUtils;
+
 public class Part1 {
 
     public static void main(String[] args) throws IOException {
-        FileReader fileReader = new FileReader("../Input/Day5.txt");
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        BufferedReader bufferedReader = InputOutputUtils.getBufferedReaderFromFile();
 
         String[] storedLines = bufferedReader
             .lines()

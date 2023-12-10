@@ -10,7 +10,7 @@ import utils.InputOutputUtils;
 public class Part1 {
 
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = InputOutputUtils.getBufferedReader(2022, 1);
+        BufferedReader bufferedReader = InputOutputUtils.getBufferedReaderFromFile(2022, 1);
 
         String[] storedLines = bufferedReader
             .lines()

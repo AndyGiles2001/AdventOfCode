@@ -9,14 +9,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import utils.InputOutputUtils;
+
 public class Part2 {
 
     private static String START_SUFFIX = "A";
     private static String DESTINATION_SUFFIX = "Z";
 
     public static void main(String[] args) throws IOException {
-        FileReader fileReader = new FileReader("../Input/Day8.txt");
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        BufferedReader bufferedReader = InputOutputUtils.getBufferedReaderFromFile();
 
         char[] instructions = bufferedReader.readLine().toCharArray();
         bufferedReader.readLine();

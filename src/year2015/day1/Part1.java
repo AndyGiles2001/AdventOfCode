@@ -8,7 +8,7 @@ import utils.InputOutputUtils;
 public class Part1 {
 
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = InputOutputUtils.getBufferedReader(2015, 1);
+        BufferedReader bufferedReader = InputOutputUtils.getBufferedReaderFromFile();
 
         String line = bufferedReader.readLine();
         bufferedReader.close();

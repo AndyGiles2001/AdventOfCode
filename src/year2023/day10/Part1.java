@@ -8,13 +8,14 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
+import utils.InputOutputUtils;
+
 public class Part1 {
 
     private static final char START = 'S';
 
     public static void main(String[] args) throws IOException {
-        FileReader fileReader = new FileReader("../Input/Day10.txt");
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        BufferedReader bufferedReader = InputOutputUtils.getBufferedReaderFromFile();
 
         char[][] grid = bufferedReader
             .lines()
