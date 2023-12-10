@@ -1,7 +1,6 @@
 package year2023.day3;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 
 import utils.InputOutputUtils;
@@ -9,7 +8,7 @@ import utils.InputOutputUtils;
 public class Part1 {
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = InputOutputUtils.getBufferedReaderFromFile();
-        
+
         String[] storedLines = bufferedReader
             .lines()
             .toArray(String[]::new);
