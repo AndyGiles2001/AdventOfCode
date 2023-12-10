@@ -3,3 +3,6 @@
 
 # But not .java files
 !*.java
+
+# Include directories
+!*/
