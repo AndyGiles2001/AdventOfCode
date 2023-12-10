@@ -1,18 +1,22 @@
+package year2022.day1;
+
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 
 import java.lang.Math;
 
+import utils.InputOutputUtils;
+
 public class Part1 {
 
     public static void main(String[] args) throws IOException {
-        FileReader fileReader = new FileReader("../Input/Day1.txt");
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        BufferedReader bufferedReader = InputOutputUtils.getBufferedReader(2022, 1);
 
         String[] storedLines = bufferedReader
             .lines()
             .toArray(String[]::new);
+
+        bufferedReader.close();
 
         int maximumCalories = 0;
         int caloriesForThisElf = 0;
