@@ -2,9 +2,10 @@ package year2023.day2;
 
 import java.io.BufferedReader; 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import utils.InputOutputUtils;
 
@@ -13,17 +14,15 @@ public class Part2 {
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = InputOutputUtils.getBufferedReaderFromFile();
 
-        AtomicInteger total = new AtomicInteger();
-        bufferedReader
+        int total = bufferedReader
             .lines()
             .map(Game::new)
             .map(game -> game.lowestPossible())
-            .map(bag -> bag.getPower())
-            .forEach(power -> total.getAndAdd(power));
+            .collect(Collectors.summingInt(bag -> bag.getPower()));
 
         bufferedReader.close();
         
-        System.out.println(total.get());
+        System.out.println(total);
     }
 
     private static class Game {
