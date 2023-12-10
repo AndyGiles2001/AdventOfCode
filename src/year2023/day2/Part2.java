@@ -1,3 +1,5 @@
+package year2023.day2;
+
 import java.io.BufferedReader; 
 import java.io.FileReader;
 import java.io.IOException;
@@ -113,12 +115,6 @@ public class Part2 {
             return red;
         }
 
-        public boolean isPossible(Bag bag) {
-            return this.green <= bag.getGreen()
-                && this.blue <= bag.getBlue()
-                && this.red <= bag.getRed();
-        }
-
         public String toString() {
             return "Green: " + String.valueOf(green) + ", Blue: " + String.valueOf(blue) + ", Red: " + String.valueOf(red);
         }
@@ -134,18 +130,6 @@ public class Part2 {
             this.green = green;
             this.blue = blue;
             this.red = red;
-        }
-
-        public int getGreen() {
-            return green;
-        }
-
-        public int getBlue() {
-            return blue;
-        }
-
-        public int getRed() {
-            return red;
         }
 
         public int getPower() {

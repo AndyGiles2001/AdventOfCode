@@ -1,3 +1,5 @@
+package year2023.day9;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
