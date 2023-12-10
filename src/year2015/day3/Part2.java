@@ -1,17 +1,20 @@
+package year2015.day3;
+
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import utils.InputOutputUtils;
+
 public class Part2 {
 
     public static void main(String[] args) throws IOException {
-        FileReader fileReader = new FileReader("../Input/Day3.txt");
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        BufferedReader bufferedReader = InputOutputUtils.getBufferedReader(2015, 3);
 
         String line = bufferedReader.readLine();
+        bufferedReader.close();
 
         int[] currX = new int[]{0, 0};
         int[] currY = new int[]{0, 0};

@@ -1,14 +1,17 @@
+package year2015.day1;
+
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+
+import utils.InputOutputUtils;
 
 public class Part2 {
 
     public static void main(String[] args) throws IOException {
-        FileReader fileReader = new FileReader("../Input/Day1.txt");
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        BufferedReader bufferedReader = InputOutputUtils.getBufferedReader(2015, 1);
 
         String line = bufferedReader.readLine();
+        bufferedReader.close();
 
         int basementIndex = getBasementIndex(line);
 

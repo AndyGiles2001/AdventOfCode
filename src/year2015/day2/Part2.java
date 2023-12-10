@@ -1,21 +1,24 @@
+package year2015.day2;
+
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
-public class Part1 {
+import utils.InputOutputUtils;
+
+public class Part2 {
 
     public static void main(String[] args) throws IOException {
-        FileReader fileReader = new FileReader("../Input/Day2.txt");
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        BufferedReader bufferedReader = InputOutputUtils.getBufferedReader(2015, 2);
 
         int total = bufferedReader
             .lines()
             .map(line -> new Present(line))
-            .map(present -> present.getWrappingArea())
+            .map(present -> present.getRibbonLength())
             .reduce(0, (a, b) -> a + b);
+
+        bufferedReader.close();
 
         System.out.println(total);
     }
@@ -35,6 +38,13 @@ public class Part1 {
         private int getWrappingArea() {
             int[] areas = new int[]{dimensions[0] * dimensions[1], dimensions[0] * dimensions[2], dimensions[1] * dimensions[2]};
             return areas[0] * 3 + areas[1] * 2 + areas[2] * 2;
+        }
+
+        private int getRibbonLength() {
+            int smallestPerimeter = dimensions[0] * 2 + dimensions[1] * 2;
+            int volume = dimensions[0] * dimensions[1] * dimensions[2];
+
+            return smallestPerimeter + volume;
         }
     }
 }
