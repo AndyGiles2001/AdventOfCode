@@ -1,7 +1,6 @@
 package year2015.day2;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 
 import java.util.Arrays;

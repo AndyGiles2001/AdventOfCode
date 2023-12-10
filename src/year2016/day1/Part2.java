@@ -1,21 +1,20 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+package year2016.day1;
 
-import java.lang.Math;
+import java.io.BufferedReader;
+import java.io.IOException;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import utils.InputOutputUtils;
+
 public class Part2 {
 
     public static void main(String[] args) throws IOException {
-        long startTime = System.currentTimeMillis();
-
-        FileReader fileReader = new FileReader("../Input/Day1.txt");
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        BufferedReader bufferedReader = InputOutputUtils.getBufferedReader(2016, 1);
 
         String line = bufferedReader.readLine();
+        bufferedReader.close();
 
         int direction = 0;
         int x = 0;
@@ -26,8 +25,6 @@ public class Part2 {
         visitedCoordinates.add(new Coordinates(x, y));
 
         for (int i = 0; i < instructions.length; i++) {
-            Coordinates currentCoordinates = new Coordinates(x, y);
-
             String instruction = instructions[i];
 
             switch (instruction.charAt(0)) {
@@ -81,10 +78,7 @@ public class Part2 {
             }
         }
 
-        long endTime = System.currentTimeMillis();
-
         System.out.println(String.format("[%d, %d]", x, y));
-        System.out.println(String.format("%d ms", endTime - startTime));
     }
 
     private static boolean checkIfComplete(int x, int y, Set<Coordinates> visitedCoordinates) {

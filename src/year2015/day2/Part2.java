@@ -35,11 +35,6 @@ public class Part2 {
             Arrays.sort(dimensions);
         }
 
-        private int getWrappingArea() {
-            int[] areas = new int[]{dimensions[0] * dimensions[1], dimensions[0] * dimensions[2], dimensions[1] * dimensions[2]};
-            return areas[0] * 3 + areas[1] * 2 + areas[2] * 2;
-        }
-
         private int getRibbonLength() {
             int smallestPerimeter = dimensions[0] * 2 + dimensions[1] * 2;
             int volume = dimensions[0] * dimensions[1] * dimensions[2];
