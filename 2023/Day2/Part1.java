@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,6 +18,8 @@ public class Part1 {
             .map(Game::new)
             .filter(game -> game.isPossible(bag))
             .collect(Collectors.summingInt(game -> game.getId()));
+
+        bufferedReader.close();
 
         System.out.println(total);
     }

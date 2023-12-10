@@ -15,6 +15,8 @@ public class Part1 {
         String[] storedLines = bufferedReader
             .lines()
             .toArray(String[]::new);
+        
+        bufferedReader.close();
 
         List<Integer> times = extractIntegers(storedLines[0]);
         List<Integer> recordDistances = extractIntegers(storedLines[1]);

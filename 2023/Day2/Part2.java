@@ -18,6 +18,8 @@ public class Part2 {
             .map(game -> game.lowestPossible())
             .map(bag -> bag.getPower())
             .forEach(power -> total.getAndAdd(power));
+
+        bufferedReader.close();
         
         System.out.println(total.get());
     }
@@ -36,20 +38,6 @@ public class Part2 {
             for (String handful : separateHandfuls) {
                 handfuls.add(new Handful(handful));
             }
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public boolean isPossible(Bag bag) {
-            for (Handful handful : handfuls) {
-                if (!handful.isPossible(bag)) {
-                    return false;
-                }
-            }
-
-            return true;
         }
 
         public Bag lowestPossible() {

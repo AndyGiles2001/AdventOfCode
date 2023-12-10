@@ -2,8 +2,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import java.lang.StringBuilder;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +16,8 @@ public class Part1 {
         int total = bufferedReader
             .lines()
             .collect(Collectors.summingInt(Part1::extrapolate));
+
+        bufferedReader.close();
 
         System.out.println(total);
     }

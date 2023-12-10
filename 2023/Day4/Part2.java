@@ -3,7 +3,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,6 +22,8 @@ public class Part2 {
             .map(line -> new Card(line, pattern))
             .map(card -> card.getMatchingNumbers())
             .collect(Collectors.toList());
+
+        bufferedReader.close();
 
         int[] arr = new int[matches.size()];
         int total = 0;

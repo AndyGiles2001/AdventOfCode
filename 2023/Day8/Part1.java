@@ -23,6 +23,8 @@ public class Part1 {
             .lines()
             .forEach(line -> deserializeIntoMap(graph, line));
 
+        bufferedReader.close();
+
         int steps = 0;
         String currentNode = START_NODE;
         boolean done = false;

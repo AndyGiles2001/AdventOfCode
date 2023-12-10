@@ -15,6 +15,8 @@ public class Part1 {
             .lines()
             .toArray(String[]::new);
 
+        bufferedReader.close();
+
         List<Long> seeds = new ArrayList<>();
         for (String seedString : storedLines[0].split(": ")[1].split(" ")) {
             seeds.add(Long.parseLong(seedString));
@@ -68,10 +70,6 @@ public class Part1 {
             }
 
             return sourceValue;
-        }
-
-        public int size() {
-            return mapEntries.size();
         }
     }
 

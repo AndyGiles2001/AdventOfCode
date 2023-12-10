@@ -8,13 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.StringJoiner;
 
 public class Part2 {
 
     public static void main(String[] args) throws IOException {
-        long startTime = System.currentTimeMillis();
-
         FileReader fileReader = new FileReader("../Input/Day7.txt");
         BufferedReader bufferedReader = new BufferedReader(fileReader);
 
@@ -24,13 +21,13 @@ public class Part2 {
             .sorted()
             .collect(Collectors.toList());
 
+        bufferedReader.close();
+
         int total = 0;
         for (int i = 0; i < hands.size(); i++) {
             total += hands.get(i).getBid() * (i + 1);
         }
 
-        long endTime = System.currentTimeMillis();
-        System.out.println(String.format("Duration: %d ms.", endTime - startTime));
         System.out.println(total);
     }
 
@@ -40,10 +37,6 @@ public class Part2 {
         private static final int CARDS_PER_HAND = 5;
         
         private static final char JOKER = 'J';
-        private static final char TEN = 'T';
-        private static final char QUEEN = 'Q';
-        private static final char KING = 'K';
-        private static final char ACE = 'A';
 
         private String cards;
         private int bid;

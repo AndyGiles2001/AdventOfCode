@@ -2,8 +2,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import java.lang.Math;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -19,6 +17,8 @@ public class Part1 {
             .map(line -> new Card(line))
             .map(card -> card.getPower())
             .reduce(0, (a, b) -> a + b);
+        
+        bufferedReader.close();
 
         System.out.println(result);
     }

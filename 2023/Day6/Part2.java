@@ -4,10 +4,6 @@ import java.io.IOException;
 
 import java.lang.Math;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class Part2 {
 
     public static void main(String[] args) throws IOException {
@@ -17,6 +13,8 @@ public class Part2 {
         String[] storedLines = bufferedReader
             .lines()
             .toArray(String[]::new);
+
+        bufferedReader.close();
 
         long time = extractLong(storedLines[0]);
         long recordDistance = extractLong(storedLines[1]);

@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Part2 {
@@ -25,6 +24,8 @@ public class Part2 {
         bufferedReader
             .lines()
             .forEach(line -> deserializeIntoMap(graph, line));
+
+        bufferedReader.close();
 
         List<String> currentNodes = graph
             .keySet()

@@ -4,12 +4,9 @@ import java.io.IOException;
 
 import java.lang.Math;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class Part2 {
 
@@ -22,31 +19,20 @@ public class Part2 {
     private static final int DOWN = 7;
     private static final int DOWN_RIGHT = 8;
 
-    public static void main(String[] args) {
-        String fileName = "../Input/Day3.txt";
+    public static void main(String[] args) throws IOException {
+        FileReader fileReader = new FileReader("../Input/Day3.txt");
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-        long start = System.currentTimeMillis();
+        char[][] storedLines = bufferedReader
+            .lines()
+            .map(s -> s.toCharArray())
+            .toArray(char[][]::new);
 
-        char[][] storedLines;
-        try (FileReader fileReader = new FileReader(fileName); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
-            storedLines = bufferedReader
-                .lines()
-                .map(s -> s.toCharArray())
-                .toArray(char[][]::new);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        long read = System.currentTimeMillis();
+        bufferedReader.close();
 
         int total = getTotal(storedLines);
 
-        long end = System.currentTimeMillis();
-
         System.out.println(total);
-
-        System.out.println("Reading time (ms): " + String.valueOf(read - start));
-        System.out.println("Execution time (ms): " + String.valueOf(end - read));
     }
 
     private static int getTotal(char[][] lines) {
@@ -80,8 +66,6 @@ public class Part2 {
     }
 
     private static Set<Integer> getDirections(int lineIndex, int index, char[][] lines) {
-        int lineLength = lines[lineIndex].length;
-
         Set<Integer> directions = new HashSet<>();
 
         if (Character.isDigit(lines[lineIndex][index - 1])) {

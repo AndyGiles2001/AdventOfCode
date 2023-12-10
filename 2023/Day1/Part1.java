@@ -10,6 +10,8 @@ public class Part1 {
 
         int total = bufferedReader.lines().collect(Collectors.summingInt(Part1::getCalibration));
 
+        bufferedReader.close();
+
         System.out.println(total);
     }
 

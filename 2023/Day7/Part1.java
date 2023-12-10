@@ -20,6 +20,8 @@ public class Part1 {
             .sorted()
             .collect(Collectors.toList());
 
+        bufferedReader.close();
+
         int total = 0;
         for (int i = 0; i < hands.size(); i++) {
             Hand hand = hands.get(i);

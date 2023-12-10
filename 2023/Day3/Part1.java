@@ -2,22 +2,15 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class Part1 {
-    public static void main(String[] args) {
-        String fileName = "../Input/Day3.txt";
-
-        String[] storedLines;
-        try (FileReader fileReader = new FileReader(fileName); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
-            storedLines = bufferedReader
-                .lines()
-                .toArray(String[]::new);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public static void main(String[] args) throws IOException {
+        FileReader fileReader = new FileReader("../Input/Day3.txt");
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String[] storedLines = bufferedReader
+            .lines()
+            .toArray(String[]::new);
+        
+        bufferedReader.close();
 
         int total = getTotal(storedLines);
         System.out.println(total);
