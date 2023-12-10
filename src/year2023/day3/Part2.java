@@ -1,6 +1,5 @@
 package year2023.day3;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 
 import java.lang.Math;
@@ -23,14 +22,7 @@ public class Part2 {
     private static final int DOWN_RIGHT = 8;
 
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = InputOutputUtils.getBufferedReaderFromFile();
-
-        char[][] storedLines = bufferedReader
-            .lines()
-            .map(s -> s.toCharArray())
-            .toArray(char[][]::new);
-
-        bufferedReader.close();
+        char[][] storedLines = InputOutputUtils.getCharArrayArrayFromFile();
 
         int total = getTotal(storedLines);
 

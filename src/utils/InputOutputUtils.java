@@ -30,4 +30,11 @@ public class InputOutputUtils {
         bufferedReader.close();
         return charArrArr;
     }
+
+    public static String getStringFromFile() throws IOException {
+        BufferedReader bufferedReader = getBufferedReaderFromFile();
+        String firstLine = bufferedReader.readLine();
+        bufferedReader.close();
+        return firstLine;
+    }
 }

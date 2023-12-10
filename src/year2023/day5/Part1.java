@@ -11,13 +11,7 @@ import utils.InputOutputUtils;
 public class Part1 {
 
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = InputOutputUtils.getBufferedReaderFromFile();
-
-        String[] storedLines = bufferedReader
-            .lines()
-            .toArray(String[]::new);
-
-        bufferedReader.close();
+        String[] storedLines = InputOutputUtils.getStringArrayFromFile();
 
         List<Long> seeds = new ArrayList<>();
         for (String seedString : storedLines[0].split(": ")[1].split(" ")) {

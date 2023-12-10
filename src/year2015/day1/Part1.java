@@ -1,6 +1,5 @@
 package year2015.day1;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 
 import utils.InputOutputUtils;
@@ -8,10 +7,7 @@ import utils.InputOutputUtils;
 public class Part1 {
 
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = InputOutputUtils.getBufferedReaderFromFile();
-
-        String line = bufferedReader.readLine();
-        bufferedReader.close();
+        String line = InputOutputUtils.getStringFromFile();
 
         int floor = 0;
         for (int i = 0; i < line.length(); i++) {

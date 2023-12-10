@@ -1,6 +1,5 @@
 package year2022.day1;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 
 import java.util.ArrayList;
@@ -12,13 +11,7 @@ import utils.InputOutputUtils;
 public class Part2 {
 
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = InputOutputUtils.getBufferedReaderFromFile();
-
-        String[] storedLines = bufferedReader
-            .lines()
-            .toArray(String[]::new);
-
-        bufferedReader.close();
+        String[] storedLines = InputOutputUtils.getStringArrayFromFile();
 
         List<Integer> elfCalories = new ArrayList<>();
 

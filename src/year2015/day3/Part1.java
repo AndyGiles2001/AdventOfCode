@@ -1,6 +1,5 @@
 package year2015.day3;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 
 import java.util.HashSet;
@@ -11,10 +10,7 @@ import utils.InputOutputUtils;
 public class Part1 {
 
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = InputOutputUtils.getBufferedReaderFromFile();
-
-        String line = bufferedReader.readLine();
-        bufferedReader.close();
+        String line = InputOutputUtils.getStringFromFile();
 
         int currX = 0;
         int currY = 0;
