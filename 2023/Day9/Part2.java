@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Part1 {
+public class Part2 {
 
     public static void main(String[] args) throws IOException {
         FileReader fileReader = new FileReader("../Input/Day9.txt");
@@ -17,21 +17,26 @@ public class Part1 {
 
         int total = bufferedReader
             .lines()
-            .collect(Collectors.summingInt(Part1::extrapolate));
+            .collect(Collectors.summingInt(Part2::extrapolate));
 
         System.out.println(total);
     }
 
     private static int extrapolate(String s) {
         List<Integer> values = parse(s);
-    
-        int total = 0;    
+        List<Integer> firstValues = new ArrayList<>();
+
         while (!allZeroes(values)) {
-            total += values.get(values.size() - 1);
+            firstValues.add(values.get(0));
             values = reduce(values);
         }
 
-        return total;
+        int runningDifference = 0;
+        for (int i = firstValues.size() - 1; i >= 0; i--) {
+            runningDifference = firstValues.get(i) - runningDifference;
+        }
+
+        return runningDifference;
     }
 
     private static List<Integer> reduce(List<Integer> values) {
