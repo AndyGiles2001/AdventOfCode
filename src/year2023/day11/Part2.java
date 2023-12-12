@@ -2,14 +2,13 @@ package year2023.day11;
 
 import java.io.IOException;
 
-import java.lang.Math;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import utils.InputOutputUtils;
+import utils.Point;
 import utils.SetUtils;
 
 public class Part2 {
@@ -45,7 +44,7 @@ public class Part2 {
 
             total += galaxies
                 .stream()
-                .collect(Collectors.summingLong(otherGalaxy -> otherGalaxy.getDistanceFrom(galaxy)));
+                .collect(Collectors.summingLong(otherGalaxy -> otherGalaxy.manhattanDistance(galaxy)));
         }
 
         System.out.println(total);
@@ -58,23 +57,15 @@ public class Part2 {
             .collect(Collectors.toSet());
     }
 
-    private static class Galaxy {
-
-        private int x;
-        private int y;
+    private static class Galaxy extends Point {
 
         public Galaxy(int x, int y) {
-            this.x = x;
-            this.y = y;
+            super(x, y);
         }
 
         public void adjustCoordinates(Set<Integer> emptyRows, Set<Integer> emptyColumns, int expansion) {
             x += emptyColumns.stream().filter(columnIndex -> columnIndex < x).count() * (expansion - 1);
             y += emptyRows.stream().filter(rowIndex -> rowIndex < y).count() * (expansion - 1);
-        }
-
-        public long getDistanceFrom(Galaxy other) {
-            return Math.abs(x - other.x) + Math.abs(y - other.y);
         }
     }
 }
