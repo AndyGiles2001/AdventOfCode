@@ -11,8 +11,11 @@ public class InputOutputUtils {
 
         StackTraceElement initiator = stackTraceElements[stackTraceElements.length - 1];
         String[] splitPackage = initiator.toString().split("\\.");
-        
-        String filepath = String.format("../input/%s/%s.txt", splitPackage[0], splitPackage[1]);
+
+        String filepath = System.getProperty("user.dir").endsWith("src")
+            ? String.format("../input/%s/%s.txt", splitPackage[0], splitPackage[1])
+            : String.format("input/%s/%s.txt", splitPackage[0], splitPackage[1]);
+
         FileReader fileReader = new FileReader(filepath);
         return new BufferedReader(fileReader);
     }
