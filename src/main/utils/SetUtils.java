@@ -64,7 +64,7 @@ public class SetUtils {
      */
     public static <T> boolean isSubset(Set<T> a, Set<T> b) {
         if (a == null || b == null) {
-            throw new IllegalArgumentException("Cannot call subset() if either set is null.");
+            throw new IllegalArgumentException("Cannot call isSubset() if either set is null.");
         }
 
         return a.stream().allMatch(b::contains);
@@ -82,7 +82,7 @@ public class SetUtils {
     }
 
     /**
-     * Returns whether the set is null or
+     * Returns whether the set is null or empty.
      */
     public static <T> boolean isNullOrEmpty(Set<T> s) {
         return s == null || s.isEmpty();
