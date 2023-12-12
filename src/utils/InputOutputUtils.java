@@ -26,7 +26,10 @@ public class InputOutputUtils {
 
     public static char[][] getCharArrayArrayFromFile() throws IOException {
         BufferedReader bufferedReader = getBufferedReaderFromFile();
-        char[][] charArrArr = bufferedReader.lines().toArray(char[][]::new);
+        char[][] charArrArr = bufferedReader
+            .lines()
+            .map(String::toCharArray)
+            .toArray(char[][]::new);
         bufferedReader.close();
         return charArrArr;
     }
