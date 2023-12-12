@@ -1,6 +1,5 @@
 package year2023.day10;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 
 import java.util.HashSet;
@@ -13,13 +12,13 @@ public class Part1 {
 
     private static final char START = 'S';
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = InputOutputUtils.getBufferedReaderFromFile();
+    private static final int LEFT = 0;
+    private static final int UP = 1;
+    private static final int RIGHT = 2;
+    private static final int DOWN = 3;
 
-        char[][] grid = bufferedReader
-            .lines()
-            .map(String::toCharArray)
-            .toArray(char[][]::new);
+    public static void main(String[] args) throws IOException {
+        char[][] grid = InputOutputUtils.getCharArrayArrayFromFile();
 
         int startingX = -1;
         int startingY = -1;
@@ -44,15 +43,17 @@ public class Part1 {
 
         while (!visitedButUnexplored.isEmpty()) {
             Node nodeToExplore = visitedButUnexplored.pop();
+            System.out.println(String.format("Exploring (%d, %d)", nodeToExplore.getX(), nodeToExplore.getY()));
             explored.add(nodeToExplore.getEncoding(grid));
 
             Set<Node> neighbors = getUnvisitedNeighbors(grid, nodeToExplore, explored);
 
+            System.out.println(neighbors.size());
             for (Node neighbor : neighbors) {
                 if (neighbor.getContent() == START) {
                     return;
                 } else {
-                    visitedButUnexplored.add(neighbor);
+                    visitedButUnexplored.push(neighbor);
                 }
             }
         }
@@ -61,31 +62,54 @@ public class Part1 {
     }
 
     private static Set<Node> getUnvisitedNeighbors(char[][] grid, Node node, Set<Integer> explored) {
-        int gridWidth = grid[0].length;
-        int gridHeight = grid.length;
         int x = node.getX();
         int y = node.getY();
+        int distanceFromStart = node.getDistanceFromStart();
 
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                if (i == 0 && j == 0) {
-                    break;
-                }
-
-                int xToSearch = x + i;
-                int yToSearch = y + j;
-
-                if (xToSearch < 0 || xToSearch >= gridWidth || yToSearch < 0 || yToSearch >= gridHeight) {
-                    break;
-                }
-
-                if (explored.contains(yToSearch * gridWidth + xToSearch)) {
-                    break;
-                }
-            }
+        Set<Node> unvisitedNeighbors = new HashSet<>();
+        if (valid(x - 1, y, grid, LEFT, explored)) {
+            unvisitedNeighbors.add(new Node(x - 1, y, grid[y][x - 1], node, distanceFromStart + 1));
         }
 
-        return null;
+        if (valid(x, y - 1, grid, UP, explored)) {
+            unvisitedNeighbors.add(new Node(x, y - 1, grid[y - 1][x], node, distanceFromStart + 1));
+        }
+
+        if (valid(x + 1, y, grid, RIGHT, explored)) {
+            unvisitedNeighbors.add(new Node(x + 1, y, grid[y][x + 1], node, distanceFromStart + 1));
+        }
+
+        if (valid(x, y + 1, grid, DOWN, explored)) {
+            unvisitedNeighbors.add(new Node(x, y + 1, grid[y + 1][x], node, distanceFromStart + 1));
+        }
+
+        return unvisitedNeighbors;
+    }
+
+    private static boolean valid(int x, int y, char[][] grid, int direction, Set<Integer> explored) {
+        int gridWidth = grid[0].length;
+
+        if (x < 0 || x >= gridWidth) {
+            return false;
+        }
+
+        if (explored.contains(y * gridWidth + x)) {
+            return false;
+        }
+
+        char content = grid[x][y];
+        switch (direction) {
+            case LEFT:
+                return content == 'F' || content == 'L';
+            case UP:
+                return content == 'F' || content == '7';
+            case RIGHT:
+                return content == 'J' || content == '7';
+            case DOWN:
+                return content == 'J' || content == 'L';
+        }
+
+        return false;
     }
 
     private static class Node {
@@ -119,6 +143,10 @@ public class Part1 {
 
         public Node getPrecursor() {
             return precursor;
+        }
+
+        public int getDistanceFromStart() {
+            return distanceFromStart;
         }
 
         public int getEncoding(char[][] grid) {
