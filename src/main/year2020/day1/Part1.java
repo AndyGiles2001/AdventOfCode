@@ -17,17 +17,13 @@ public class Part1 {
         Set<Integer> numbers = reader.lines().map(Integer::valueOf).collect(Collectors.toSet());
         reader.close();
 
-        long start = System.currentTimeMillis();
-
         while (!numbers.isEmpty()) {
             Integer number = SetUtils.pop(numbers);
             int complement = TARGET - number;
             if (numbers.contains(complement)) {
-                long end = System.currentTimeMillis();
-                System.out.println(String.format("Found in %d ms.", end - start));
-                
-                int product = number * complement;
-                System.out.println(String.format("%d * %d = %d", number, complement, product));
+                System.out.println(
+                    String.format("%d * %d = %d", number, complement, number * complement)
+                );
                 return;
             }
         }
