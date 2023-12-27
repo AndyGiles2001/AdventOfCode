@@ -60,6 +60,17 @@ public class InputOutputUtils {
         }
     }
 
+    public static long[] getLongArrayFromFile() {
+        try {
+            BufferedReader bufferedReader = getBufferedReaderFromFile();
+            long[] longArr = bufferedReader.lines().mapToLong(Long::parseLong).toArray();
+            bufferedReader.close();
+            return longArr;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static String getStringFromFile() {
         try {
             BufferedReader bufferedReader = getBufferedReaderFromFile();
