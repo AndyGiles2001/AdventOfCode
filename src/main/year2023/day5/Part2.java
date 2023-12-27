@@ -2,8 +2,14 @@ package main.year2023.day5;
 
 import java.io.IOException;
 
+import java.lang.Math;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import main.utils.InputOutputUtils;
 
@@ -23,80 +29,112 @@ public class Part2 {
             }
         }
 
-        List<Long> seeds = new ArrayList<>();
         String[] seedStrings = storedLines[0].split(": ")[1].split(" ");
-        if (seedStrings.length % 2 != 0) {
-            throw new RuntimeException();
-        }
-
-        long minimumLocation = Long.MAX_VALUE;
+        Set<Range> seedRanges = new HashSet<>();
         for (int i = 0; i < seedStrings.length; i += 2) {
             long rangeStart = Long.parseLong(seedStrings[i]);
             long rangeSize = Long.parseLong(seedStrings[i + 1]);
-
-            System.out.println(
-                String.format("Processing for seeds %d to %d. (%d)", rangeStart, rangeStart + rangeSize - 1, rangeSize)
-            );
-
-            for (long j = 0; j < rangeSize; j++) {
-                long seed = rangeStart + j;
-                long completeMapping = getCompleteMapping(seed, maps);
-                if (completeMapping < minimumLocation) {
-                    minimumLocation = completeMapping;
-                }
-            }
+            seedRanges.add(new Range(rangeStart, rangeSize));
         }
 
-        System.out.println(minimumLocation);
+        Set<Range> locations = getCompleteMapping(seedRanges, maps);
+
+        long result = Collections.min(
+            locations
+                .stream()
+                .map(range -> range.getStart())
+                .collect(Collectors.toSet())
+        );
+
+        System.out.println(result);
     }
 
-    private static long getCompleteMapping(long value, List<Map> maps) {
+    private static Set<Range> getCompleteMapping(Set<Range> ranges, List<Map> maps) {
         for (Map map : maps) {
-            value = map.getMapping(value);
+            ranges = map.getMapping(ranges);
         }
-        return value;
+
+        return ranges;
     }
 
     private static class Map {
-        private List<MapEntry> mapEntries;
+        private Set<MapEntry> mapEntries;
 
         public Map() {
-            mapEntries = new ArrayList<>();
+            mapEntries = new HashSet<>();
         }
 
         public void addEntry(String serialized) {
             mapEntries.add(new MapEntry(serialized));
         }
 
-        public long getMapping(long sourceValue) {
-            for (MapEntry entry : mapEntries) {
-                if (entry.mappingApplies(sourceValue)) {
-                    return entry.getMapping(sourceValue);
+        public Set<Range> getMapping(Set<Range> inputRanges) {
+            System.out.println(String.format("In %d ranges.", inputRanges.size()));
+            Set<Range> outputRanges = new HashSet<>();
+
+            for (Range range : inputRanges) {
+                for (MapEntry mapEntry : mapEntries) {
+                    Range outputRange = mapEntry.generateMapping(range);
+                    if (outputRange != null) {
+                        outputRanges.add(outputRange);
+                    }
                 }
             }
 
-            return sourceValue;
+            System.out.println(String.format("Out %d ranges.", outputRanges.size()));
+            return outputRanges;
         }
     }
 
     private static class MapEntry {
         private long sourceStart;
         private long destinationStart;
-        private long range;
+        private long rangeSize;
 
         public MapEntry(String serialized) {
             String[] mapInfo = serialized.split(" ");
             this.sourceStart = Long.parseLong(mapInfo[1]);
             this.destinationStart = Long.parseLong(mapInfo[0]);
-            this.range = Long.parseLong(mapInfo[2]);
+            this.rangeSize = Long.parseLong(mapInfo[2]);
         }
 
-        public boolean mappingApplies(long sourceValue) {
-            return sourceValue >= sourceStart && sourceValue < sourceStart + range;
+        public Range generateMapping(Range range) {
+            long rangeStart = range.getStart();
+            long rangeEnd = range.getEnd();
+            long entryEnd = sourceStart + rangeSize;
+
+            if (entryEnd <= rangeStart) {
+                return null;
+            }
+
+            if (rangeEnd <= sourceStart) {
+                return null;
+            }
+
+            long maxStart = Math.max(sourceStart, rangeStart);
+            long minEnd = Math.min(entryEnd, rangeEnd);
+
+            long mappingDistance = destinationStart - sourceStart;
+
+            return new Range(maxStart + mappingDistance, minEnd - maxStart);
+        }
+    }
+
+    private static class Range {
+        private long start;
+        private long rangeSize;
+
+        public Range(long start, long rangeSize) {
+            this.start = start;
+            this.rangeSize = rangeSize;
         }
 
-        public long getMapping(long sourceValue) {
-            return sourceValue + destinationStart - sourceStart;
+        public long getStart() {
+            return start;
+        }
+
+        public long getEnd() {
+            return start + rangeSize;
         }
     }
 }
