@@ -87,4 +87,23 @@ public class SetUtils {
     public static <T> boolean isNullOrEmpty(Set<T> s) {
         return s == null || s.isEmpty();
     }
+
+    public static void addAll(Set<Character> s, char[] arr) {
+        for (char c : arr) {
+            s.add(c);
+        }
+    }
+
+    public static void retainAll(Set<Character> s, char[] arr) {
+        Set<Character> other = setFromArr(arr);
+        s.retainAll(other);
+    }
+
+    public static Set<Character> setFromArr(char[] arr) {
+        Set<Character> s = new HashSet<>();
+        for (char c : arr) {
+            s.add(c);
+        }
+        return s;
+    }
 }

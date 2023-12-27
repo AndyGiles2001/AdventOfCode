@@ -10,7 +10,23 @@ public class Point {
         this.y = y;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public long manhattanDistance() {
+        return Math.abs(x) + Math.abs(y);
+    }
+
     public long manhattanDistance(Point other) {
         return Math.abs(x - other.x) + Math.abs(y - other.y);
+    }
+
+    public String toString() {
+        return String.format("(%d, %d)", x, y);
     }
 }
