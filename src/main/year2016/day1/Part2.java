@@ -87,40 +87,4 @@ public class Part2 {
         visitedCoordinates.add(coordinates);
         return false;
     }
-
-    private static class Coordinates {
-
-        private int x;
-        private int y;
-
-        public Coordinates(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public int getX() {
-            return x;
-        }
-
-        public int getY() {
-            return y;
-        }
-        
-        public int hashCode() {
-            int hash = 19;
-            hash = hash * 31 + x;
-            hash = hash * 31 + y;
-            return hash;
-        }
-
-        public boolean equals(Object other) {
-            if (other == null || getClass() != other.getClass()) {
-                return false;
-            }
-
-            Coordinates otherCoordinates = (Coordinates) other;
-
-            return x == otherCoordinates.getX() && y == otherCoordinates.getY();
-        }
-    }
 }
