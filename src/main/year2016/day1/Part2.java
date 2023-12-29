@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import main.utils.InputOutputUtils;
+import main.utils.Point;
 
 public class Part2 {
 
@@ -17,8 +18,8 @@ public class Part2 {
         int y = 0;
 
         String[] instructions = line.split(", ");
-        Set<Coordinates> visitedCoordinates = new HashSet<>();
-        visitedCoordinates.add(new Coordinates(x, y));
+        Set<Point> visitedCoordinates = new HashSet<>();
+        visitedCoordinates.add(new Point(x, y));
 
         for (int i = 0; i < instructions.length; i++) {
             String instruction = instructions[i];
@@ -77,8 +78,8 @@ public class Part2 {
         System.out.println(String.format("[%d, %d]", x, y));
     }
 
-    private static boolean checkIfComplete(int x, int y, Set<Coordinates> visitedCoordinates) {
-        Coordinates coordinates = new Coordinates(x, y);
+    private static boolean checkIfComplete(int x, int y, Set<Point> visitedCoordinates) {
+        Point coordinates = new Point(x, y);
         if (visitedCoordinates.contains(coordinates)) {
             return true;
         }

@@ -47,6 +47,25 @@ public class Point {
         return Math.abs(x - other.x) + Math.abs(y - other.y);
     }
 
+    public int hashCode() {
+        int hash = 19;
+
+        hash = hash * 31 + x;
+        hash = hash * 31 + y;
+        
+        return hash;
+    }
+
+    public boolean equals(Object other) {
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+
+        Point otherPoint = (Point) other;
+
+        return x == otherPoint.x && y == otherPoint.y;
+    }
+
     public String toString() {
         return String.format("(%d, %d)", x, y);
     }
