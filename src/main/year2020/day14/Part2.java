@@ -81,21 +81,6 @@ public class Part2 {
         return stringBuilder.toString();
     }
 
-    private static long getLongFromBitString(String s) {
-        long result = 0L;
-
-        long powerOfTwo = 1L;
-        for (int i = s.length() - 1; i >= 0; i--) {
-            if (s.charAt(i) == '1') {
-                result += powerOfTwo;
-            }
-
-            powerOfTwo *= 2;
-        }
-
-        return result;
-    }
-
     private static void writeToAddressSpace(String addressSpace, long value) {
         int numberOfUncertainties = StringUtils.countOccurences(addressSpace, 'X');
         long numberOfPermutations = exponentiate(2, numberOfUncertainties);
@@ -107,22 +92,29 @@ public class Part2 {
     }
 
     private static Long specifyAddress(String uncertainAddress, int permutation, int numberOfPermutationBits) {
-        StringBuilder stringBuilder = new StringBuilder();
-
         String permutationBits = getBitStringFromLong(permutation, numberOfPermutationBits);
 
+        long result = 0L;
+        long powerOfTwo = 1L;
+
         int uncertaintiesPassed = 0;
-        for (int i = 0; i < uncertainAddress.length(); i++) {
-            char c = uncertainAddress.charAt(i);
-            if (c == 'X') {
-                stringBuilder.append(permutationBits.charAt(uncertaintiesPassed));
-                uncertaintiesPassed++;
-            } else {
-                stringBuilder.append(c);
+        for (int i = uncertainAddress.length() - 1; i >= 0; i--) {
+            switch (uncertainAddress.charAt(i)) {
+                case 'X':
+                    if (permutationBits.charAt(uncertaintiesPassed) == '1') {
+                        result += powerOfTwo;
+                    }
+                    uncertaintiesPassed++;
+                    break;
+                case '1':
+                    result += powerOfTwo;
+                    break;
             }
+
+            powerOfTwo *= 2;
         }
 
-        return getLongFromBitString(stringBuilder.toString());
+        return result;
     }
 
     private static String applyBitmask(String bitRepresentation, String bitmask) {
