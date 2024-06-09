@@ -46,10 +46,10 @@ public class Part2 {
                 throw new RuntimeException("Could not identify pattern for line: " + line);
             });
 
-        long result = memory
-            .values()
-            .stream()
-            .collect(Collectors.summingLong(Long::longValue));
+        long result = 0L;
+        for (long value : memory.values()) {
+            result += value;
+        }
 
         long end = System.currentTimeMillis();
 
@@ -58,10 +58,6 @@ public class Part2 {
 
     private static void handleMemoryUpdate(int address, long value) {
         String addressSpace = applyBitmask(address);
-        writeToAddressSpace(addressSpace, value);
-    }
-
-    private static void writeToAddressSpace(String addressSpace, long value) {
         int numberOfUncertainties = StringUtils.countOccurences(addressSpace, 'X');
         long numberOfPermutations = 1 << numberOfUncertainties;
 
