@@ -86,25 +86,23 @@ public class Part2 {
         long numberOfPermutations = exponentiate(2, numberOfUncertainties);
 
         for (int i = 0; i < numberOfPermutations; i++) {
-            long specificAddress = specifyAddress(addressSpace, i, numberOfUncertainties);
+            long specificAddress = specifyAddress(addressSpace, i);
             memory.put(specificAddress, value);
         }
     }
 
-    private static Long specifyAddress(String uncertainAddress, int permutation, int numberOfPermutationBits) {
-        String permutationBits = getBitStringFromLong(permutation, numberOfPermutationBits);
-
+    private static Long specifyAddress(String uncertainAddress, int permutation) {
         long result = 0L;
         long powerOfTwo = 1L;
 
-        int uncertaintiesPassed = 0;
-        for (int i = uncertainAddress.length() - 1; i >= 0; i--) {
+        int permutationBitmask = 1;
+        for (int i = 35; i >= 0; i--) {
             switch (uncertainAddress.charAt(i)) {
                 case 'X':
-                    if (permutationBits.charAt(uncertaintiesPassed) == '1') {
+                    if ((permutation & permutationBitmask) > 0) {
                         result += powerOfTwo;
                     }
-                    uncertaintiesPassed++;
+                    permutationBitmask <<= 1;
                     break;
                 case '1':
                     result += powerOfTwo;
@@ -121,14 +119,8 @@ public class Part2 {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (int i = 0; i < 36; i++) {
-            char realBit = bitRepresentation.charAt(i);
             char maskBit = bitmask.charAt(i);
-
-            if (maskBit == '0') {
-                stringBuilder.append(realBit);
-            } else {
-                stringBuilder.append(maskBit);
-            }
+            stringBuilder.append(maskBit == '0' ? bitRepresentation.charAt(i) : maskBit);
         }
 
         return stringBuilder.toString();
