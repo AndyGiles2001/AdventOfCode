@@ -1,13 +1,9 @@
 package main.year2020.day14;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
-import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import main.utils.InputOutputUtils;
 import main.utils.StringUtils;
@@ -22,24 +18,22 @@ public class Part2 {
     private static String bitmask;
 
     public static void main(String[] args) {
-        long start = System.currentTimeMillis();
-
         InputOutputUtils
             .getBufferedReaderFromFile()
             .lines()
             .forEach(line -> {
-                Matcher maskMatcher = maskPattern.matcher(line);
-                if (maskMatcher.find()) {
-                    bitmask = maskMatcher.group(1);
-                    return;
-                }
-
                 Matcher memoryMatcher = memoryPattern.matcher(line);
                 if (memoryMatcher.find()) {
                     handleMemoryUpdate(
                         Integer.parseInt(memoryMatcher.group(1)),
                         Long.parseLong(memoryMatcher.group(2))
                     );
+                    return;
+                }
+
+                Matcher maskMatcher = maskPattern.matcher(line);
+                if (maskMatcher.find()) {
+                    bitmask = maskMatcher.group(1);
                     return;
                 }
 
@@ -51,9 +45,7 @@ public class Part2 {
             result += value;
         }
 
-        long end = System.currentTimeMillis();
-
-        System.out.println(String.format("%d - found in %dms.", result, end - start));
+        System.out.println(result);
     }
 
     private static void handleMemoryUpdate(int address, long value) {
@@ -67,18 +59,17 @@ public class Part2 {
         }
     }
 
-    private static Long specifyAddress(String uncertainAddress, int permutation) {
+    private static long specifyAddress(String addressSpace, int permutation) {
         long result = 0L;
         long powerOfTwo = 1L;
-        int permutationBitmask = 1;
 
         for (int i = 35; i >= 0; i--) {
-            switch (uncertainAddress.charAt(i)) {
+            switch (addressSpace.charAt(i)) {
                 case 'X':
-                    if ((permutation & permutationBitmask) > 0) {
+                    if ((permutation & 1) > 0) {
                         result += powerOfTwo;
                     }
-                    permutationBitmask <<= 1;
+                    permutation >>= 1;
                     break;
                 case '1':
                     result += powerOfTwo;
