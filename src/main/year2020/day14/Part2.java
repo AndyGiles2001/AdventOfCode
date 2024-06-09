@@ -57,25 +57,16 @@ public class Part2 {
     }
 
     private static void handleMemoryUpdate(int address, long value) {
-        String addressBitRepresentation = getBitStringFromLong(address, 36);
+        String addressBitRepresentation = getBitStringFromLong(address);
         String addressSpace = applyBitmask(addressBitRepresentation, bitmask);
         writeToAddressSpace(addressSpace, value);
     }
 
-    private static String getBitStringFromLong(long l, int numBits) {
+    private static String getBitStringFromLong(long l) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        long powerOfTwo = exponentiate(2, numBits - 1);
-
-        while (powerOfTwo > 0) {
-            if (l >= powerOfTwo) {
-                stringBuilder.append('1');
-                l -= powerOfTwo;
-            } else {
-                stringBuilder.append('0');
-            }
-
-            powerOfTwo /= 2;
+        for (long powerOfTwo = 1L << 35; powerOfTwo != 0; powerOfTwo >>= 1) {
+            stringBuilder.append((l & powerOfTwo) > 0 ? '1' : '0');
         }
 
         return stringBuilder.toString();
@@ -83,7 +74,7 @@ public class Part2 {
 
     private static void writeToAddressSpace(String addressSpace, long value) {
         int numberOfUncertainties = StringUtils.countOccurences(addressSpace, 'X');
-        long numberOfPermutations = exponentiate(2, numberOfUncertainties);
+        long numberOfPermutations = 1 << numberOfUncertainties;
 
         for (int i = 0; i < numberOfPermutations; i++) {
             long specificAddress = specifyAddress(addressSpace, i);
@@ -94,8 +85,8 @@ public class Part2 {
     private static Long specifyAddress(String uncertainAddress, int permutation) {
         long result = 0L;
         long powerOfTwo = 1L;
-
         int permutationBitmask = 1;
+
         for (int i = 35; i >= 0; i--) {
             switch (uncertainAddress.charAt(i)) {
                 case 'X':
@@ -109,7 +100,7 @@ public class Part2 {
                     break;
             }
 
-            powerOfTwo *= 2;
+            powerOfTwo <<= 1;
         }
 
         return result;
@@ -124,15 +115,5 @@ public class Part2 {
         }
 
         return stringBuilder.toString();
-    }
-
-    private static long exponentiate(int base, int exponent) {
-        long result = 1;
-
-        for (int i = 0; i < exponent; i++) {
-            result *= base;
-        }
-
-        return result;
     }
 }
