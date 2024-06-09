@@ -57,19 +57,8 @@ public class Part2 {
     }
 
     private static void handleMemoryUpdate(int address, long value) {
-        String addressBitRepresentation = getBitStringFromLong(address);
-        String addressSpace = applyBitmask(addressBitRepresentation, bitmask);
+        String addressSpace = applyBitmask(address);
         writeToAddressSpace(addressSpace, value);
-    }
-
-    private static String getBitStringFromLong(long l) {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        for (long powerOfTwo = 1L << 35; powerOfTwo != 0; powerOfTwo >>= 1) {
-            stringBuilder.append((l & powerOfTwo) > 0 ? '1' : '0');
-        }
-
-        return stringBuilder.toString();
     }
 
     private static void writeToAddressSpace(String addressSpace, long value) {
@@ -106,12 +95,16 @@ public class Part2 {
         return result;
     }
 
-    private static String applyBitmask(String bitRepresentation, String bitmask) {
+    private static String applyBitmask(int address) {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (int i = 0; i < 36; i++) {
             char maskBit = bitmask.charAt(i);
-            stringBuilder.append(maskBit == '0' ? bitRepresentation.charAt(i) : maskBit);
+            if (maskBit == '0') {
+                stringBuilder.append(((address & (1L << (35 - i))) > 0 ? '1' : '0'));
+            } else {
+                stringBuilder.append(maskBit);
+            }
         }
 
         return stringBuilder.toString();
