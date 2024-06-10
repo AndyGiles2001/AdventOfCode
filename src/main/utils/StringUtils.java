@@ -13,4 +13,20 @@ public class StringUtils {
 
         return total;
     }
+
+    public static int countOccurencesOfAny(String s, String targets) {
+        int total = 0;
+
+        char[] targetsArr = targets.toCharArray();
+
+        for (char c : s.toCharArray()) {
+            for (char target : targetsArr) {
+                if (c == target) {
+                    total++;
+                }
+            }
+        }
+
+        return total;
+    }
 }

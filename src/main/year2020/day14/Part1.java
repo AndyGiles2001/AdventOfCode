@@ -50,7 +50,7 @@ public class Part1 {
     private static void handleMemoryUpdate(int address, long value) {
         for (int i = 0; i < 36; i++) {
             char maskBit = bitmask.charAt(i);
-            
+
             if (maskBit == '1') {
                 value |= 1L << (35 - i);
             } else if (maskBit == '0') {

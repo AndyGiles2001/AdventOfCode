@@ -18,4 +18,26 @@ public class ArrayUtils {
 
         return String.format("[%s]", stringJoiner);
     }
+
+    public static int[] splitToIntArray(String s, String splitter) {
+        String[] stringArr = s.split(splitter);
+        int arrSize = stringArr.length;
+        int[] intArr = new int[arrSize];
+        for (int i = 0; i < arrSize; i++) {
+            intArr[i] = Integer.parseInt(stringArr[i]);
+        }
+        return intArr;
+    }
+
+    public static int min(int[] arr) {
+        int[] copy = copyOf(arr);
+        Arrays.sort(copy);
+        return copy[0];
+    }
+
+    public static int max(int[] arr) {
+        int[] copy = copyOf(arr);
+        Arrays.sort(copy);
+        return copy[copy.length - 1];
+    }
 }

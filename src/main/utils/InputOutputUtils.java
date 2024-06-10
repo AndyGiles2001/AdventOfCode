@@ -82,6 +82,15 @@ public class InputOutputUtils {
         }
     }
 
+    public static char[] getCharArrayFromFile() {
+        return getStringFromFile().toCharArray();
+    }
+
+    public static int getIntFromFile() {
+        String s = getStringFromFile();
+        return Integer.parseInt(s);
+    }
+
     public static void closeReader(BufferedReader reader) {
         try {
             reader.close();
