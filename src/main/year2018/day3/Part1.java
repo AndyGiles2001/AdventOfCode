@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import main.utils.InputOutputUtils;
+import main.utils.MutableInteger;
 
 public class Part1 {
 
@@ -13,17 +14,17 @@ public class Part1 {
 
     public static void main(String[] args) {
         Map<Integer, Integer> usesBySquareInch = new HashMap<>();
+        MutableInteger result = new MutableInteger();
 
         InputOutputUtils
             .getBufferedReaderFromFile()
             .lines()
-            .forEach(line -> handleLine(line, usesBySquareInch));
+            .forEach(line -> handleLine(line, usesBySquareInch, result));
 
-        long result = usesBySquareInch.values().stream().filter(uses -> uses > 1).count();
-        System.out.println(result);
+        System.out.println(result.get());
     }
 
-    private static void handleLine(String line, Map<Integer, Integer> usesBySquareInch) {
+    private static void handleLine(String line, Map<Integer, Integer> usesBySquareInch, MutableInteger result) {
         FabricRegion fabricRegion = getFabricRegion(line);
         int left = fabricRegion.getLeft();
         int top = fabricRegion.getTop();
@@ -32,7 +33,9 @@ public class Part1 {
 
         for (int i = left; i < left + width; i++) {
             for (int j = top; j < top + height; j++) {
-                usesBySquareInch.compute(j * 1000 + i, (k, v) -> v == null ? 1 : v + 1);
+                if (usesBySquareInch.compute(j * 1000 + i, (k, v) -> v == null ? 1 : v + 1) == 2) {
+                    result.increment();
+                }
             }
         }
     }
